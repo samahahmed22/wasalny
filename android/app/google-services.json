@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "305710675724",
+    "project_id": "wasalny-ea6f6",
+    "storage_bucket": "wasalny-ea6f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305710675724:android:d5f7ce66064ca6c8d17b29",
+        "android_client_info": {
+          "package_name": "com.example.wasalny"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305710675724-r2nrg0tks6nj8jt8usolcipk2d19ph9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiK-Az8FQqrz_tD9eNOx6FsOqcu_N1XLI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305710675724-r2nrg0tks6nj8jt8usolcipk2d19ph9o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

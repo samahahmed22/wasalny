@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/my_colors.dart';
+import 'custom_text_form_field.dart';
 
 class PhoneFormField extends StatelessWidget {
   final Function(String?) onSave;
@@ -21,51 +22,46 @@ class PhoneFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-            decoration: BoxDecoration(
-              border: Border.all(color: MyColors.lightGrey),
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-            ),
-            child: Text(
-              generateCountryFlag() + ' +966',
-              style: TextStyle(fontSize: 18, letterSpacing: 2.0),
-            ),
+        Container(
+          // width: 110,
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 18),
+
+          decoration: BoxDecoration(
+            color: MyColors.lightGrey,
+            border: Border.all(color: MyColors.lightGrey),
+            borderRadius: BorderRadius.all(Radius.circular(6)),
+          ),
+          child: Text(
+            generateCountryFlag() + ' +966',
+            style: TextStyle(fontSize: 20, letterSpacing: 2.0),
           ),
         ),
         SizedBox(
           width: 16,
         ),
         Expanded(
-          flex: 2,
+          // flex: 2,
           child: Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-            decoration: BoxDecoration(
-              border: Border.all(color: MyColors.blue),
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-            ),
-            child: TextFormField(
+            // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+            // decoration: BoxDecoration(
+            //   border: Border.all(color: MyColors.blue),
+            //   borderRadius: BorderRadius.all(Radius.circular(6)),
+            // ),
+            child: CustomTextFormField(
               autofocus: true,
-              style: TextStyle(
-                fontSize: 18,
-                letterSpacing: 2.0,
-              ),
-              decoration: InputDecoration(border: InputBorder.none),
-              cursorColor: Colors.black,
               keyboardType: TextInputType.phone,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter yout phone number!';
-                } else if (value.length < 12) {
-                  return 'Too short for a phone number!';
+                  return 'Please enter your phone number!';
+                } else if (value.length < 9) {
+                  return 'This phone number is invalid!';
                 }
                 return null;
               },
-              onSaved: onSave,
+              onSave: onSave,
             ),
           ),
         ),

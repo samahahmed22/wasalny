@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wasalny/constants/my_colors.dart';
 
 class SubmitButton extends StatelessWidget {
   final String text;
@@ -10,8 +11,8 @@ class SubmitButton extends StatelessWidget {
   SubmitButton({
     required this.onPress,
     required this.text,
-    this.backgroundColor = Colors.black,
-    this.textColor = Colors.white,
+    this.backgroundColor = MyColors.primaryColor,
+    this.textColor = MyColors.primaryColor,
   });
 
   @override

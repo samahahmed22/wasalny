@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:wasalny/constants/my_colors.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String? label;
@@ -23,14 +26,34 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       // controller: controller,
-      autofocus: true,
+
+      autofocus: autofocus,
       style: TextStyle(
         fontSize: 18,
         letterSpacing: 2.0,
       ),
-      decoration: InputDecoration(border: InputBorder.none),
-      
-    
+      cursorColor: MyColors.grey,
+      decoration: InputDecoration(
+        labelText: label,
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.0),
+          borderSide: BorderSide(
+            color: MyColors.grey,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6.0),
+          borderSide: BorderSide(
+            color: MyColors.grey,
+          ),
+        ),
+      ),
       keyboardType: keyboardType,
       onSaved: onSave,
       validator: validator,

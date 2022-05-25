@@ -1,12 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:wasalny/constants/my_colors.dart';
+import 'package:wasalny/styles/colors.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String? label;
+  final String? initialValue;
   final TextInputType keyboardType;
-  // final TextEditingController controller;
+  final TextEditingController? controller;
   final Function(String?) onSave;
   final String? Function(String?) validator;
   bool obscureText;
@@ -14,19 +15,20 @@ class CustomTextFormField extends StatelessWidget {
 
   CustomTextFormField({
     this.label,
+    this.initialValue,
     this.keyboardType = TextInputType.text,
-    // required this.controller,
+    this.controller,
     required this.onSave,
     required this.validator,
     this.obscureText = false,
-    this.autofocus = true,
+    this.autofocus = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // controller: controller,
-
+      controller: controller,
+      initialValue: initialValue,
       autofocus: autofocus,
       style: TextStyle(
         fontSize: 18,
@@ -35,6 +37,7 @@ class CustomTextFormField extends StatelessWidget {
       cursorColor: MyColors.grey,
       decoration: InputDecoration(
         labelText: label,
+        labelStyle: TextStyle(color: MyColors.primaryColor, fontSize: 16),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red),
         ),

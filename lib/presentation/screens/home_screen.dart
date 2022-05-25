@@ -2,15 +2,13 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:wasalny/business_logic/cubit/phone_auth/phone_auth_cubit.dart';
-
-import '../../constants/my_colors.dart';
-import '../../constants/strings.dart';
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import '../../data/models/user_model.dart';
+import '../../styles/colors.dart';
 import '../../helpers/location_helper.dart';
-import '../widgets/submit_button.dart';
+import '../widgets/my_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,8 +18,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  PhoneAuthCubit phoneAuthCubit = PhoneAuthCubit();
-
+ 
+UserModel? user ; 
   static Position? position;
   Completer<GoogleMapController> _mapController = Completer();
 
@@ -66,9 +64,69 @@ class _HomeScreenState extends State<HomeScreen> {
         CameraUpdate.newCameraPosition(_myCurrentLocationCameraPosition));
   }
 
+  Widget buildFloatingSearchBar() {
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+
+  return FloatingSearchBar(
+      // controller: controller,
+      elevation: 6,
+      hintStyle: TextStyle(fontSize: 18),
+      queryStyle: TextStyle(fontSize: 18),
+      hint: 'Find a place..',
+      border: BorderSide(style: BorderStyle.none),
+      margins: EdgeInsets.fromLTRB(20, 70, 20, 0),
+      padding: EdgeInsets.fromLTRB(2, 0, 2, 0),
+      height: 52,
+      iconColor: MyColors.blue,
+      scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+      transitionDuration: const Duration(milliseconds: 600),
+      transitionCurve: Curves.easeInOut,
+      physics: const BouncingScrollPhysics(),
+      axisAlignment: isPortrait ? 0.0 : -1.0,
+      openAxisAlignment: 0.0,
+      width: isPortrait ? 600 : 500,
+      debounceDelay: const Duration(milliseconds: 500),
+      // progress: progressIndicator,
+      onQueryChanged: (query) {
+        // getPlacesSuggestions(query);
+      },
+      onFocusChanged: (_) {
+        // hide distance and time row
+        // setState(() {
+          // isTimeAndDistanceVisible = false;
+        // });
+      },
+      transition: CircularFloatingSearchBarTransition(),
+      actions: [
+        FloatingSearchBarAction(
+          showIfOpened: false,
+          child: CircularButton(
+              icon: Icon(Icons.place, color: Colors.black.withOpacity(0.6)),
+              onPressed: () {}),
+        ),
+      ],
+      builder: (context, transition) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // buildSuggestionsBloc(),
+              // buildSelectedPlaceLocationBloc(),
+              // buildDiretionsBloc(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer(),
       body: Stack(fit: StackFit.expand, children: [
         position != null
             ? buildMap()
@@ -79,19 +137,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
+              // buildFloatingSearchBar()
       ]),
-      floatingActionButton: Container(
-        margin: EdgeInsets.fromLTRB(0, 0, 8, 30),
-        child: FloatingActionButton(
-          backgroundColor: MyColors.blue,
-          onPressed: _goToMyCurrentLocation,
-          child: Icon(
-            Icons.place,
-            color: Colors.white,
-            size: 35,
-          ),
-        ),
-      ),
+    //   floatingActionButton: Container(
+    //     width: 40,
+    //     margin: EdgeInsets.fromLTRB(0, 0, 8, 10),
+    //     child: FloatingActionButton(
+    //       backgroundColor: Colors.white,
+    //       onPressed: _goToMyCurrentLocation,
+    //       child: Icon(
+    //         Icons.my_location_sharp,
+    //         color: MyColors.grey,
+    //         // size: 35,
+    //       ),
+    //     ),
+    //   ),
     );
   }
 }

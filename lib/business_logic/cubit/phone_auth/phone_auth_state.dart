@@ -15,4 +15,9 @@ class ErrorOccurred extends PhoneAuthState {
 
 class PhoneNumberSubmited extends PhoneAuthState {}
 
-class PhoneOTPVerified extends PhoneAuthState {}
+class PhoneOTPVerified extends PhoneAuthState {
+  final String uId ; 
+   PhoneOTPVerified({required this.uId});
+}
+
+

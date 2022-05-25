@@ -1,19 +1,23 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
+
+import '../../../data/models/user_model.dart';
 
 part 'phone_auth_state.dart';
 
 class PhoneAuthCubit extends Cubit<PhoneAuthState> {
-  late String verificationId;
-
   PhoneAuthCubit() : super(PhoneAuthInitial());
 
-  Future<void> submitPhoneNumber(String phoneNumber) async {
+  static PhoneAuthCubit get(context) => BlocProvider.of(context);
+
+  late String verificationId;
+
+  Future<void> submitPhoneNumber(String number) async {
     emit(Loading());
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+966$phoneNumber',
+      phoneNumber: '+966$number',
       timeout: const Duration(seconds: 14),
       verificationCompleted: verificationCompleted,
       verificationFailed: verificationFailed,
@@ -50,18 +54,12 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
 
   Future<void> signIn(PhoneAuthCredential credential) async {
     try {
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      emit(PhoneOTPVerified());
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      emit(PhoneOTPVerified(uId: userCredential.user!.uid));
     } catch (error) {
       emit(ErrorOccurred(errorMsg: error.toString()));
     }
-  }
-
-  Future<void> logOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
-
-  User getLoggedInUser() {
-    return FirebaseAuth.instance.currentUser!;
   }
 }

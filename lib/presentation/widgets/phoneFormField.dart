@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/my_colors.dart';
+import '../../styles/colors.dart';
 import 'custom_text_form_field.dart';
 
 class PhoneFormField extends StatelessWidget {

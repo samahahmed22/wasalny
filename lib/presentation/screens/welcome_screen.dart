@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wasalny/constants/strings.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override

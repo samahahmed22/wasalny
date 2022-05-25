@@ -1,22 +1,41 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wasalny/styles/themes.dart';
 import 'app_router.dart';
-import 'constants/strings.dart';
+import 'bloc_observer.dart';
+import '/shared/variables.dart';
+import '/shared/constants.dart';
+import 'helpers/cache_helper.dart';
 
 late String initialRoute;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
+  Bloc.observer = MyBlocObserver();
+
+  await CacheHelper.init();
+  
+  // userId = CacheHelper.getData(key: 'userId');
+  // if (userId != null) {
+  //   initialRoute = homeScreen;
+  // } else {
+  //   initialRoute = onBoardingScreen;
+  // }
+  // print('>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+  // print(userId);
+
   FirebaseAuth.instance.authStateChanges().listen((user) {
     if (user == null) {
-      initialRoute = loginScreen;
+      initialRoute = onBoardingScreen;
     } else {
-      initialRoute = homeScreen;
+      userId = user.uid;
+      initialRoute = firstScreen;
     }
   });
-  
+
   runApp(MyApp(
     appRouter: AppRouter(),
   ));
@@ -32,6 +51,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: appRouter.generateRoute,
       initialRoute: initialRoute,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.light,
     );
   }
 }

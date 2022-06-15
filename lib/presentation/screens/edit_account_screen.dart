@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:wasalny/data/models/user_model.dart';
 import 'package:wasalny/presentation/widgets/custom_text_form_field.dart';
-import 'package:wasalny/shared/strings.dart';
+import 'package:wasalny/shared/constants.dart';
 
 import '../../business_logic/cubit/user/user_cubit.dart';
 import '../../shared/functions.dart';
@@ -76,7 +76,7 @@ class EditAccountScreen extends StatelessWidget {
                     // Text('Edit Account'),
                     ImagePickerField(pickImage, user!.imageUrl),
                     SizedBox(height: 48),
-              
+
                     CustomTextFormField(
                       initialValue: user!.firstName,
                       label: 'First Name',
@@ -91,7 +91,7 @@ class EditAccountScreen extends StatelessWidget {
                       },
                     ),
                     SizedBox(height: 15),
-    
+
                     CustomTextFormField(
                       initialValue: user!.lastName,
                       label: 'Last Name',
@@ -106,7 +106,7 @@ class EditAccountScreen extends StatelessWidget {
                       },
                     ),
                     SizedBox(height: 15),
-          
+
                     CustomTextFormField(
                       initialValue: user!.email,
                       label: 'Email',

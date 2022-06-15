@@ -19,7 +19,7 @@ class UserCubit extends Cubit<UserState> {
 
   UserModel? user;
 
-  Future<void> TryToLoadUserData() async {
+  Future<void> loadUserData() async {
     emit(Loading());
     FirebaseFirestore.instance
         .collection('users')

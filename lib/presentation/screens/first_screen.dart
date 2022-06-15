@@ -9,7 +9,7 @@ import '../../shared/constants.dart';
 class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    UserCubit.get(context).TryToLoadUserData();
+    UserCubit.get(context).loadUserData();
     return BlocListener<UserCubit, UserState>(
       listenWhen: (previous, current) {
         return previous != current;

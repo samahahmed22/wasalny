@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasalny/data/models/user_model.dart';
+import 'package:wasalny/presentation/widgets/my_divider.dart';
 
 import '../../business_logic/cubit/phone_auth/phone_auth_cubit.dart';
 import '../../business_logic/cubit/user/user_cubit.dart';
@@ -25,26 +26,26 @@ class MyDrawer extends StatelessWidget {
             shape: BoxShape.rectangle,
             color: Colors.blue[100],
           ),
-          child: user!.imageUrl == null 
-          ?Image.asset(
-            'assets/images/default-profile-picture.png',
-            fit: BoxFit.cover,
-          )
-          :Image.network(user!.imageUrl!, fit: BoxFit.cover),
- 
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 80.0,
+              backgroundImage: user!.imageUrl == null
+                  ? AssetImage('assets/images/default-profile-picture.png')
+                      as ImageProvider
+                  : NetworkImage(user!.imageUrl!)),
         ),
         Text(
           user!.firstName! + ' ' + user!.lastName!,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        Text(
-          user!.phoneNumber,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        
-        const SizedBox(
-          height: 5,
-        ),
+        // Text(
+        //   user!.phoneNumber,
+        //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        // ),
+
+        // const SizedBox(
+        //   height: 5,
+        // ),
       ],
     );
   }
@@ -121,16 +122,18 @@ class MyDrawer extends StatelessWidget {
             title: 'Places History',
             onTap: () {},
           ),
-          buildDrawerListItemsDivider(),
+          MyDivider(),
+          // buildDrawerListItemsDivider(),
           buildDrawerListItem(leadingIcon: Icons.settings, title: 'Settings'),
-          buildDrawerListItemsDivider(),
+          MyDivider(),
+          // buildDrawerListItemsDivider(),
           buildDrawerListItem(leadingIcon: Icons.help, title: 'Help'),
-          buildDrawerListItemsDivider(),
+          MyDivider(),
+          // buildDrawerListItemsDivider(),
           buildLogoutBlocProvider(context),
           const SizedBox(
             height: 180,
           ),
-          
         ],
       ),
     );
